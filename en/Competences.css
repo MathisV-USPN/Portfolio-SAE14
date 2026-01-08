@@ -1,0 +1,312 @@
+/* Importation Polices */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+/* Reset et Base (Identique aux autres pages) */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: white;
+    background: linear-gradient(135deg, #000000 0%, #2e003e 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+@keyframes slideInFromBottom {
+    0% { transform: translateY(100vh); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+/* --- Layout Principal --- */
+.content-wrapper {
+    margin-left: 300px;
+    padding: 50px;
+    /* Animation d'entrée pour l'effet scroll */
+    animation: slideInFromBottom 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+h1 {
+    text-align: center;
+    font-size: 3.5rem;
+    margin-bottom: 40px;
+    text-shadow: 0 4px 10px rgba(174, 0, 255, 0.5);
+}
+
+.domain-title {
+    color: #fdd835; /* Jaune (Ta couleur secondaire) */
+    font-size: 1.8rem;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+}
+
+.skills-grid {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+/* --- EFFET FLIP CARD (3D) --- */
+.flip-card {
+    background-color: transparent;
+    width: 250px;
+    height: 320px;
+    perspective: 1000px; /* Donne l'effet de profondeur 3D */
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+/* Rotation au survol de la souris */
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Styles communs Avant et Arrière */
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* --- Face AVANT --- */
+.flip-card-front {
+    background: rgba(255, 255, 255, 0.1); /* Effet verre */
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.flip-card-front .icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.flip-card-front h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: white;
+}
+
+/* --- Jauge Circulaire Stylée --- */
+.progress-circle {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: conic-gradient(#fdd835 calc(var(--percent) * 1%), rgba(255,255,255,0.1) 0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(253, 216, 53, 0.3);
+}
+
+/* Le rond noir au milieu pour faire un anneau */
+.progress-circle::before {
+    content: "";
+    position: absolute;
+    width: 65px;
+    height: 65px;
+    background-color: #1a0b2e; /* Couleur foncée du fond de carte */
+    border-radius: 50%;
+}
+
+.progress-circle span {
+    position: relative;
+    font-weight: bold;
+    color: #fdd835;
+    font-size: 1.2rem;
+}
+
+/* --- Face ARRIÈRE --- */
+.flip-card-back {
+    background: linear-gradient(135deg, #4a148c, #000000); /* Violet foncé vers noir */
+    color: white;
+    transform: rotateY(180deg); /* Déjà retourné par défaut */
+    border: 1px solid #fdd835; /* Bordure jaune */
+}
+
+.flip-card-back h3 {
+    color: #fdd835;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.flip-card-back p {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* --- Masquage de la checkbox --- */
+#menu-burger {
+    display: none; /* Elle devient invisible et ne prend pas de place */
+}
+
+/* --- Bouton Burger --- */
+.burger-label {
+    position: fixed;
+    top: 25px;
+    left: 25px;
+    width: 35px;
+    height: 25px;
+    z-index: 3000;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.bar {
+    width: 100%;
+    height: 4px;
+    background-color: #fdd835; /* Ton Jaune */
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+/* --- La Barre de Navigation --- */
+.navbar {
+    position: fixed;
+    top: -120px; /* Caché par défaut */
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: rgba(15, 0, 25, 0.98);
+    border-bottom: 2px solid #ae00ff;
+    z-index: 2000;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Effet rebond léger */
+    
+    /* On utilise flexbox pour organiser la barre */
+    display: flex;
+    align-items: center;
+    padding: 0 50px; 
+}
+
+/* --- LOGIQUE DE SURVOL (Hover) --- */
+/* Le menu descend si on survole le burger OU si on survole la navbar elle-même */
+.burger-label:hover ~ .navbar,
+.navbar:hover {
+    top: 0;
+}
+
+/* On garde le clic (checkbox) pour que ça marche aussi sur téléphone */
+#menu-burger:checked ~ .navbar {
+    top: 0;
+}
+
+/* --- Alignement des titres --- */
+.navbar ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    width: 100%; /* Prend toute la largeur de la barre */
+    margin: 0;
+    padding: 0;
+}
+
+/* 1. Espace vide à gauche pour équilibrer le bouton de traduction */
+.navbar ul::before {
+    content: "";
+    flex: 1; 
+}
+
+/* 2. Les liens du milieu */
+.nav-links-container {
+    display: flex;
+    gap: 30px;
+    flex: 2; /* Donne plus d'importance au centre */
+    justify-content: center; /* Centre les titres parfaitement */
+}
+
+/* 3. Le bouton de traduction à droite */
+.nav-translate {
+    flex: 1; /* Prend le même espace que le ::before pour que le centre soit exact */
+    display: flex;
+    justify-content: flex-end; /* Colle le bouton à droite */
+}
+
+/* --- Styles des liens --- */
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    text-transform: uppercase;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+
+.navbar a:hover, .navbar a.active {
+    color: #fdd835;
+    text-shadow: 0 0 8px rgba(253, 216, 53, 0.6);
+}
+
+.nav-translate a {
+    border: 1px solid #fdd835;
+    padding: 8px 15px;
+    border-radius: 50px; /* Style soucoupe comme dans projets */
+    font-size: 0.8rem;
+}
+
+/* Animation du burger en X */
+#menu-burger:checked + .burger-label .bar:nth-child(1) { transform: translateY(10px) rotate(45deg); }
+#menu-burger:checked + .burger-label .bar:nth-child(2) { opacity: 0; }
+#menu-burger:checked + .burger-label .bar:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+
+/* Ajustement du contenu principal (on enlève la marge de 300px) */
+.content-wrapper {
+    margin-left: 0 !important;
+    padding-top: 100px; /* Pour ne pas être sous le menu quand il descend */
+}
+
+.page-navigation {
+    position: fixed; right: 30px; top: 50%; transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 20px; z-index: 2000;
+}
+.nav-arrow {
+    display: flex; justify-content: center; align-items: center;
+    width: 50px; height: 50px; border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white; text-decoration: none; font-size: 1.5rem; transition: all 0.3s;
+}
+.nav-arrow:hover { background: #ae00ff; transform: scale(1.1); }
+
+.icon {
+    width: 80px;           /* Largeur fixe pour l'icône */
+    height: 80px;          /* Hauteur fixe */
+    margin-bottom: 20px;   /* Espace avec le titre */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;       /* Taille si c'est un émoji */
+}
+
+.icon img {
+    width: 100%;           /* L'image prend toute la place du parent .icon */
+    height: auto;          /* Garde les proportions */
+    object-fit: contain;   /* Évite de déformer le logo */
+}
+/* Responsive */
+@media (max-width: 768px) {
+    .content-wrapper { margin-left: 0; padding: 20px; }
+    .sidebar { width: 100%; height: 60px; bottom: 0; top: auto; opacity: 1; justify-content: center; padding: 0; }
+    .sidebar ul { display: flex; gap: 15px; }
+    .sidebar a { font-size: 1rem; }
+    .page-navigation { right: 10px; }
+}

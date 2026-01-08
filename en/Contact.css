@@ -1,0 +1,263 @@
+/* Base & Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: white;
+    background: linear-gradient(135deg, #000000 0%, #2e003e 100%);
+    min-height: 100vh;
+}
+
+.content-wrapper {
+    margin-left: 300px;
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    animation: slideInFromBottom 0.8s ease-out;
+}
+
+@keyframes slideInFromBottom {
+    0% { transform: translateY(100vh); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+.contact-container {
+    width: 100%;
+    max-width: 1000px;
+    text-align: center;
+}
+
+h1 { font-size: 3rem; margin-bottom: 10px; text-shadow: 0 0 15px #ae00ff; }
+.subtitle { color: #ccc; margin-bottom: 50px; }
+
+.contact-grid {
+    display: flex;
+    gap: 40px;
+    text-align: left;
+    flex-wrap: wrap;
+}
+
+/* --- Cartes Contact --- */
+.contact-methods {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 25px;
+    border-radius: 15px;
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.contact-card:hover {
+    border-color: #fdd835; /* Jaune au survol */
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(10px);
+}
+
+.contact-card .icon { font-size: 2rem; }
+.contact-card h3 { color: #fdd835; font-size: 1.2rem; }
+
+/* --- Formulaire --- */
+.contact-form {
+    flex: 1.5;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(174, 0, 255, 0.2);
+}
+
+.form-group { margin-bottom: 20px; }
+
+input, textarea {
+    width: 100%;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: white;
+    font-family: inherit;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: #ae00ff;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: #ae00ff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submit-btn:hover {
+    background: #fdd835;
+    color: black;
+    box-shadow: 0 0 20px #fdd835;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.8rem;
+    color: #666;
+    margin-left: 300px;
+}
+
+/* --- Masquage de la checkbox --- */
+#menu-burger {
+    display: none; /* Elle devient invisible et ne prend pas de place */
+}
+
+/* --- Bouton Burger --- */
+.burger-label {
+    position: fixed;
+    top: 25px;
+    left: 25px;
+    width: 35px;
+    height: 25px;
+    z-index: 3000;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.bar {
+    width: 100%;
+    height: 4px;
+    background-color: #fdd835; /* Ton Jaune */
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+/* --- La Barre de Navigation --- */
+.navbar {
+    position: fixed;
+    top: -120px; /* Caché par défaut */
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: rgba(15, 0, 25, 0.98);
+    border-bottom: 2px solid #ae00ff;
+    z-index: 2000;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Effet rebond léger */
+    
+    /* On utilise flexbox pour organiser la barre */
+    display: flex;
+    align-items: center;
+    padding: 0 50px; 
+}
+
+/* --- LOGIQUE DE SURVOL (Hover) --- */
+/* Le menu descend si on survole le burger OU si on survole la navbar elle-même */
+.burger-label:hover ~ .navbar,
+.navbar:hover {
+    top: 0;
+}
+
+/* On garde le clic (checkbox) pour que ça marche aussi sur téléphone */
+#menu-burger:checked ~ .navbar {
+    top: 0;
+}
+
+/* --- Alignement des titres --- */
+.navbar ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    width: 100%; /* Prend toute la largeur de la barre */
+    margin: 0;
+    padding: 0;
+}
+
+/* 1. Espace vide à gauche pour équilibrer le bouton de traduction */
+.navbar ul::before {
+    content: "";
+    flex: 1; 
+}
+
+/* 2. Les liens du milieu */
+.nav-links-container {
+    display: flex;
+    gap: 30px;
+    flex: 2; /* Donne plus d'importance au centre */
+    justify-content: center; /* Centre les titres parfaitement */
+}
+
+/* 3. Le bouton de traduction à droite */
+.nav-translate {
+    flex: 1; /* Prend le même espace que le ::before pour que le centre soit exact */
+    display: flex;
+    justify-content: flex-end; /* Colle le bouton à droite */
+}
+
+/* --- Styles des liens --- */
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    text-transform: uppercase;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+
+.navbar a:hover, .navbar a.active {
+    color: #fdd835;
+    text-shadow: 0 0 8px rgba(253, 216, 53, 0.6);
+}
+
+.nav-translate a {
+    border: 1px solid #fdd835;
+    padding: 8px 15px;
+    border-radius: 50px; /* Style soucoupe comme dans projets */
+    font-size: 0.8rem;
+}
+
+/* Animation du burger en X */
+#menu-burger:checked + .burger-label .bar:nth-child(1) { transform: translateY(10px) rotate(45deg); }
+#menu-burger:checked + .burger-label .bar:nth-child(2) { opacity: 0; }
+#menu-burger:checked + .burger-label .bar:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+
+/* Ajustement du contenu principal (on enlève la marge de 300px) */
+.content-wrapper {
+    margin-left: 0 !important;
+    padding-top: 100px; /* Pour ne pas être sous le menu quand il descend */
+}
+
+@media (max-width: 768px) {
+    .content-wrapper, footer { margin-left: 0; }
+    .contact-grid { flex-direction: column; }
+    .sidebar { width: 100%; height: 60px; bottom: 0; top: auto; opacity: 1; justify-content: center; padding: 0; }
+    .sidebar a { font-size: 1rem; margin: 0 10px; }
+}
+
+.page-navigation {
+    position: fixed; right: 30px; top: 50%; transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 20px; z-index: 2000;
+}
+.nav-arrow {
+    display: flex; justify-content: center; align-items: center;
+    width: 50px; height: 50px; border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white; text-decoration: none; font-size: 1.5rem; transition: all 0.3s;
+}
+.nav-arrow:hover { background: #ae00ff; transform: scale(1.1); }

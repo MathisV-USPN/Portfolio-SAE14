@@ -1,0 +1,188 @@
+/* Importation d'une police alternative si San Francisco n'est pas dispo (Windows/Linux) */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap');
+
+/* Reset et styles de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* Police San Francisco (via -apple-system) et alternatives */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    height: 100vh;
+    overflow: hidden; /* Empêche le scroll si le contenu tient sur la page */
+    color: white;
+    /* Fond Noir / Violet */
+    background: linear-gradient(135deg, #000000 0%, #2e003e 100%);
+}
+
+/* --- Masquage de la checkbox --- */
+#menu-burger {
+    display: none; /* Elle devient invisible et ne prend pas de place */
+}
+
+/* --- Bouton Burger --- */
+.burger-label {
+    position: fixed;
+    top: 25px;
+    left: 25px;
+    width: 35px;
+    height: 25px;
+    z-index: 3000;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.bar {
+    width: 100%;
+    height: 4px;
+    background-color: #fdd835; /* Ton Jaune */
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+/* --- La Barre de Navigation --- */
+.navbar {
+    position: fixed;
+    top: -120px; /* Caché par défaut */
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: rgba(15, 0, 25, 0.98);
+    border-bottom: 2px solid #ae00ff;
+    z-index: 2000;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Effet rebond léger */
+    
+    /* On utilise flexbox pour organiser la barre */
+    display: flex;
+    align-items: center;
+    padding: 0 50px; 
+}
+
+/* --- LOGIQUE DE SURVOL (Hover) --- */
+/* Le menu descend si on survole le burger OU si on survole la navbar elle-même */
+.burger-label:hover ~ .navbar,
+.navbar:hover {
+    top: 0;
+}
+
+/* On garde le clic (checkbox) pour que ça marche aussi sur téléphone */
+#menu-burger:checked ~ .navbar {
+    top: 0;
+}
+
+/* --- Alignement des titres --- */
+.navbar ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    width: 100%; /* Prend toute la largeur de la barre */
+    margin: 0;
+    padding: 0;
+}
+
+/* 1. Espace vide à gauche pour équilibrer le bouton de traduction */
+.navbar ul::before {
+    content: "";
+    flex: 1; 
+}
+
+/* 2. Les liens du milieu */
+.nav-links-container {
+    display: flex;
+    gap: 30px;
+    flex: 2; /* Donne plus d'importance au centre */
+    justify-content: center; /* Centre les titres parfaitement */
+}
+
+/* 3. Le bouton de traduction à droite */
+.nav-translate {
+    flex: 1; /* Prend le même espace que le ::before pour que le centre soit exact */
+    display: flex;
+    justify-content: flex-end; /* Colle le bouton à droite */
+}
+
+/* --- Styles des liens --- */
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    text-transform: uppercase;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+
+.navbar a:hover, .navbar a.active {
+    color: #fdd835;
+    text-shadow: 0 0 8px rgba(253, 216, 53, 0.6);
+}
+
+.nav-translate a {
+    border: 1px solid #fdd835;
+    padding: 8px 15px;
+    border-radius: 50px; /* Style soucoupe comme dans projets */
+    font-size: 0.8rem;
+}
+
+/* Animation du burger en X */
+#menu-burger:checked + .burger-label .bar:nth-child(1) { transform: translateY(10px) rotate(45deg); }
+#menu-burger:checked + .burger-label .bar:nth-child(2) { opacity: 0; }
+#menu-burger:checked + .burger-label .bar:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+
+/* --- Contenu Principal (Centre) --- */
+.hero-section {
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* Centre horizontalement */
+    align-items: center;     /* Centre verticalement */
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 5rem; /* Très gros titre */
+    font-weight: 900;
+    letter-spacing: 5px;
+    margin-bottom: 20px;
+    text-shadow: 0 4px 10px rgba(174, 0, 255, 0.5); /* Lueur violette */
+}
+
+.hero-content p {
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: #d1d1d1;
+}
+
+/* --- Responsive (pour mobile) --- */
+@media (max-width: 768px) {
+    .navbar {
+        width: 100%;
+        height: 60px;
+        opacity: 1;
+        bottom: 0;
+        top: auto;
+        padding: 0;
+        justify-content: center;
+    }
+    
+    .navbar ul {
+        display: flex;
+        gap: 15px;
+    }
+    
+    .navbar a {
+        font-size: 1rem;
+    }
+
+    .hero-section {
+        margin-left: 0;
+    }
+    
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+}

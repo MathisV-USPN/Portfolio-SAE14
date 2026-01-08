@@ -1,0 +1,349 @@
+/* Base & Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: white;
+    background: linear-gradient(135deg, #000000 0%, #2e003e 100%);
+    min-height: 100vh;
+}
+
+.content-wrapper {
+    margin-left: 300px;
+    padding: 50px;
+    animation: slideInFromBottom 0.8s ease-out;
+}
+
+@keyframes slideInFromBottom {
+    0% { transform: translateY(100vh); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+h1 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 50px;
+    text-shadow: 0 0 15px rgba(174, 0, 255, 0.7);
+}
+
+/* --- Container des projets --- */
+.projects-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* --- Cartes Projets Format Portrait --- */
+.project-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    width: 320px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    border-color: #ae00ff;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.project-card h2 {
+    font-size: 1.4rem;
+    color: #fdd835; /* Jaune */
+    text-align: center;
+    margin-bottom: 20px;
+    min-height: 3.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-img {
+    width: 100%;
+    height: 180px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.placeholder-icon {
+    font-size: 4rem;
+}
+
+.project-text {
+    flex-grow: 1;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.project-text.scrollable {
+    max-height: 200px;
+    overflow-y: auto; /* Permet de lire le long témoignage du Hackathon */
+    padding-right: 10px;
+}
+
+.quote {
+    font-style: italic;
+    margin-top: 10px;
+    color: #ae00ff;
+}
+
+/* --- Boutons Soucoupes --- */
+.tags-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.tag-saucoupe {
+    display: block;
+    width: 80%;
+    padding: 8px 15px;
+    background: transparent;
+    border: 1.5px solid white;
+    border-radius: 50px; /* Forme ovale soucoupe */
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.tag-saucoupe:hover {
+    background: #ae00ff;
+    border-color: #ae00ff;
+    box-shadow: 0 0 15px #ae00ff;
+    transform: scale(1.05);
+}
+
+/* --- Boutons de Navigation (Haut/Bas) --- */
+.page-navigation {
+    position: fixed;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 2000;
+}
+
+.nav-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    transition: all 0.3s;
+}
+
+.nav-arrow:hover {
+    background: #ae00ff;
+    border-color: #ae00ff;
+    transform: scale(1.1);
+}
+
+/* --- Masquage de la checkbox --- */
+#menu-burger {
+    display: none; /* Elle devient invisible et ne prend pas de place */
+}
+
+/* --- Bouton Burger --- */
+.burger-label {
+    position: fixed;
+    top: 25px;
+    left: 25px;
+    width: 35px;
+    height: 25px;
+    z-index: 3000;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.bar {
+    width: 100%;
+    height: 4px;
+    background-color: #fdd835; /* Ton Jaune */
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+/* --- La Barre de Navigation --- */
+.navbar {
+    position: fixed;
+    top: -120px; /* Caché par défaut */
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: rgba(15, 0, 25, 0.98);
+    border-bottom: 2px solid #ae00ff;
+    z-index: 2000;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Effet rebond léger */
+    
+    /* On utilise flexbox pour organiser la barre */
+    display: flex;
+    align-items: center;
+    padding: 0 50px; 
+}
+
+/* --- LOGIQUE DE SURVOL (Hover) --- */
+/* Le menu descend si on survole le burger OU si on survole la navbar elle-même */
+.burger-label:hover ~ .navbar,
+.navbar:hover {
+    top: 0;
+}
+
+/* On garde le clic (checkbox) pour que ça marche aussi sur téléphone */
+#menu-burger:checked ~ .navbar {
+    top: 0;
+}
+
+/* --- Alignement des titres --- */
+.navbar ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    width: 100%; /* Prend toute la largeur de la barre */
+    margin: 0;
+    padding: 0;
+}
+
+/* 1. Espace vide à gauche pour équilibrer le bouton de traduction */
+.navbar ul::before {
+    content: "";
+    flex: 1; 
+}
+
+/* 2. Les liens du milieu */
+.nav-links-container {
+    display: flex;
+    gap: 30px;
+    flex: 2; /* Donne plus d'importance au centre */
+    justify-content: center; /* Centre les titres parfaitement */
+}
+
+/* 3. Le bouton de traduction à droite */
+.nav-translate {
+    flex: 1; /* Prend le même espace que le ::before pour que le centre soit exact */
+    display: flex;
+    justify-content: flex-end; /* Colle le bouton à droite */
+}
+
+/* --- Styles des liens --- */
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    text-transform: uppercase;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+
+.navbar a:hover, .navbar a.active {
+    color: #fdd835;
+    text-shadow: 0 0 8px rgba(253, 216, 53, 0.6);
+}
+
+.nav-translate a {
+    border: 1px solid #fdd835;
+    padding: 8px 15px;
+    border-radius: 50px; /* Style soucoupe comme dans projets */
+    font-size: 0.8rem;
+}
+
+/* Animation du burger en X */
+#menu-burger:checked + .burger-label .bar:nth-child(1) { transform: translateY(10px) rotate(45deg); }
+#menu-burger:checked + .burger-label .bar:nth-child(2) { opacity: 0; }
+#menu-burger:checked + .burger-label .bar:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+
+/* Ajustement du contenu principal (on enlève la marge de 300px) */
+.content-wrapper {
+    margin-left: 0 !important;
+    padding-top: 100px; /* Pour ne pas être sous le menu quand il descend */
+}
+
+/* Scrollbar personnalisée pour le texte du Hackathon */
+.project-text::-webkit-scrollbar { width: 5px; }
+.project-text::-webkit-scrollbar-thumb { background: #ae00ff; border-radius: 10px; }
+
+@media (max-width: 768px) {
+    .content-wrapper { margin-left: 0; padding: 20px; }
+    .sidebar { width: 100%; height: 60px; bottom: 0; top: auto; opacity: 1; justify-content: center; padding: 0; }
+    .sidebar a { font-size: 1rem; margin: 0 10px; }
+}
+
+/* --- Système Voir Plus / Voir Moins (Pur CSS) --- */
+
+/* 1. Cacher la checkbox */
+.read-more-state {
+    display: none;
+}
+
+/* 2. Cacher le texte supplémentaire par défaut */
+.read-more-wrap {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    opacity: 0;
+}
+
+/* 3. Quand la checkbox est cochée : montrer le texte */
+.read-more-state:checked ~ .read-more-wrap {
+    max-height: 500px; /* Taille assez grande pour tout le texte */
+    opacity: 1;
+    margin-top: 15px;
+}
+
+/* 4. Style du bouton (trigger) */
+.read-more-trigger {
+    display: inline-block;
+    cursor: pointer;
+    color: #fdd835; /* Ton jaune de charte graphique */
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    margin-top: 10px;
+    padding: 5px 0;
+    border-bottom: 1px dashed #fdd835;
+}
+
+/* 5. Changer le texte du bouton dynamiquement */
+
+/* Par défaut (quand non coché) */
+.read-more-trigger::before {
+    content: "Lire le témoignage ...";
+}
+
+/* Quand la checkbox est cochée */
+.read-more-state:checked ~ .read-more-trigger::before {
+    content: "Lire moins ...";
+}
+
+/* Ajustement de la carte pour que le contenu ne déborde pas */
+.project-card {
+    height: auto; /* La carte s'agrandit avec le texte */
+    min-height: 500px;
+}
